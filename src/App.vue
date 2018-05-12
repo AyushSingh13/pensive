@@ -1,28 +1,51 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <VocabularySet
+      v-bind:vocabulary="vocab"
+    />
+    <textarea>
+    </textarea>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// Components
+import HelloWorld from "./components/HelloWorld.vue";
+import Word from "./components/Word.vue";
+import VocabularySet from "./components/VocabularySet.vue";
+
+// Data
+import vocabulary from "./assets/words.json";
 
 export default {
-  name: 'app',
+  name: "app",
+  data: () => ({
+    vocab: vocabulary
+  }),
   components: {
-    HelloWorld
+    HelloWorld,
+    Word,
+    VocabularySet
   }
-}
+};
+
+console.log(vocabulary);
 </script>
 
 <style>
+body {
+  margin: 0;
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100vw;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
 }
 </style>
