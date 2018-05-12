@@ -25,5 +25,7 @@ export default {
 </script>
 
 <style scoped>
-
+#word {
+  border-bottom: 1px solid gray;
+}
 </style>

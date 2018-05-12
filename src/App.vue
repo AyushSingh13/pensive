@@ -3,8 +3,7 @@
     <VocabularySet
       v-bind:vocabulary="vocab"
     />
-    <textarea>
-    </textarea>
+    <vue-editor></vue-editor>
   </div>
 </template>
 
@@ -13,6 +12,7 @@
 import HelloWorld from "./components/HelloWorld.vue";
 import Word from "./components/Word.vue";
 import VocabularySet from "./components/VocabularySet.vue";
+import { VueEditor } from "vue2-editor";
 
 // Data
 import vocabulary from "./assets/words.json";
@@ -25,7 +25,8 @@ export default {
   components: {
     HelloWorld,
     Word,
-    VocabularySet
+    VocabularySet,
+    VueEditor
   }
 };
 
