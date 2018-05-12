@@ -2,6 +2,7 @@
   <div id="app">
     <VocabularySet
       v-bind:vocabulary="vocab"
+      v-bind:searchTerm="searchTerm"
     />
     <vue-editor></vue-editor>
   </div>
@@ -20,7 +21,8 @@ import vocabulary from "./assets/words.json";
 export default {
   name: "app",
   data: () => ({
-    vocab: vocabulary
+    vocab: vocabulary,
+    searchTerm: ""
   }),
   components: {
     HelloWorld,
