@@ -44,8 +44,8 @@ export default {
       get() {
         return this.$store.getters.searchTerm;
       },
-      set(value) {
-        this.$store.commit("updateSearchTermValue", value);
+      set(newSearchValue) {
+        this.updateSearchTermValue(newSearchValue);
       }
     },
     ...mapGetters(["filteredVocabulary"])
