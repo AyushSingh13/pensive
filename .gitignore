@@ -20,3 +20,6 @@ yarn.lock
 *.njsproj
 *.sln
 *.sw*
+
+# API Config Settings
+./src/assets/configSettings.json

@@ -1,17 +1,17 @@
 <template>
   <div
-    overflow="auto"
-    id=""
+    id="vocabPanel"
   >
-      <input type="text" v-model="searchTerm" placeholder="Search..." />
+      <input type="text" v-model="searchTerm" placeholder="Search words" />
+      <button v-on:click="this.toggleInsertModal">Insert</button>
       <div
-        v-for="word of filteredVocabulary"
-        v-bind:key="word"
+        v-for="wordObj of this.filteredVocabulary(this.includedInWordObj)"
+        v-bind:key="wordObj.word"
+        id="vocabResults"
       >
         <Word
-          v-bind:word="word"
-          v-bind:definition="vocabulary[word].definition"
-          v-bind:etymology="vocabulary[word].etymology"
+          v-bind:word="wordObj.word"
+          v-bind:definition="wordObj.definitions"
        />
     </div>
   </div>
@@ -19,30 +19,46 @@
 
 <script>
 import Word from "./Word.vue";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "VocabularySet",
   methods: {
+    ...mapMutations(["toggleInsertModal", "updateSearchTermValue"]),
     includedInWord(word) {
       return word.toLowerCase().includes(this.searchTerm.toLowerCase());
+    },
+    includedInWordObj(wordObj) {
+      // TODO: Add includedInDefinitions(wordObj.definitions)
+      return this.includedInWord(wordObj.word);
     }
   },
   props: {
-    vocabulary: Object,
-    searchTerm: String
+    vocabularyDB: Object
   },
   components: {
     Word
   },
   computed: {
-    filteredVocabulary() {
-      return Object.keys(this.vocabulary).filter(this.includedInWord);
-    }
+    searchTerm: {
+      get() {
+        return this.$store.getters.searchTerm;
+      },
+      set(value) {
+        this.$store.commit("updateSearchTermValue", value);
+      }
+    },
+    ...mapGetters(["filteredVocabulary"])
   }
 };
 </script>
 
 <style scoped>
+#vocabPanel {
+  max-height: 100vh;
+  overflow: auto;
+}
+
 input {
   width: 90%;
 }
