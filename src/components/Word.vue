@@ -1,7 +1,11 @@
 <template>
   <div id="word">
     <h3>{{ word }}</h3>
-    <p><em>{{ definition }}</em></p>
+    <div v-for="def of definitions" v-bind:key="def.definition">
+      <strong>{{ def.partOfSpeech }}:</strong>
+      <em>{{ def.definition }}</em>
+      <br /><br />
+    </div>
   </div>
 </template>
 
@@ -10,7 +14,7 @@ export default {
   name: "Word",
   props: {
     word: String,
-    definition: Array
+    definitions: Array
   }
 };
 </script>

@@ -11,7 +11,7 @@
       >
         <Word
           v-bind:word="wordObj.word"
-          v-bind:definition="wordObj.definitions"
+          v-bind:definitions="wordObj.definitions"
        />
     </div>
   </div>
