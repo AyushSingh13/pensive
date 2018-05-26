@@ -6,25 +6,25 @@
 </template>
 
 <script>
-import vocabulary from "../assets/vocabulary.json";
+import { mapState } from "vuex";
 
 export default {
   name: "InsertWords",
   data: () => ({
     textareaValue: ""
   }),
+  computed: {
+    ...mapState(["wordsApiKey", "existingWords"])
+  },
   methods: {
     wordAlreadyExists(word) {
-      return Object.keys(vocabulary).includes(word);
+      return this.existingWords.map(wordObj => wordObj.word).includes(word);
     },
     pullWordFromApi(word) {
-      console.log(
-        "https://wordsapiv1.p.mashape.com/words/" + word.toLowerCase()
-      );
       fetch("https://wordsapiv1.p.mashape.com/words/" + word.toLowerCase(), {
         method: "GET",
         headers: {
-          "X-Mashape-Key": this.apiKey,
+          "X-Mashape-Key": this.wordsApiKey,
           Accept: "application/json"
         }
       })
@@ -54,13 +54,14 @@ export default {
       });
     },
     handleInsert() {
-      this.getNewWords(this.splitByNewline(this.textareaValue)).map(word =>
-        this.pullWordFromApi(word)
-      );
+      if (this.textareaValue != "") {
+        this.getNewWords(this.splitByNewline(this.textareaValue)).map(word =>
+          this.pullWordFromApi(word)
+        );
+      }
     }
   },
   props: {
-    apiKey: String,
     vocabularyDB: Object
   }
 };
