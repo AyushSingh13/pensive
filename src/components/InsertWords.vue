@@ -74,6 +74,6 @@ export default {
   position: fixed;
   left: 500px;
   z-index: 100000;
-  background: black;
+  background: #263238;
 }
 </style>

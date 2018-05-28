@@ -16,7 +16,7 @@ export default new Vuex.Store({
             modules: {
                 toolbar: false
             },
-            placeholder: "Write here...",
+            placeholder: "Write your masterpiece while including some fancy words here...",
             theme: "snow"
         }
     },

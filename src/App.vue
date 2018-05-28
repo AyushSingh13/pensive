@@ -21,7 +21,8 @@ import store from "./store";
 
 // Firebase
 import VueFire from "vuefire";
-import firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/database";
 
 // Custom Components
 import Word from "./components/Word.vue";
@@ -63,6 +64,11 @@ export default {
 </script>
 
 <style>
+html,
+body {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
 }
