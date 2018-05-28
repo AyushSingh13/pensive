@@ -7,7 +7,10 @@
     <VocabularySet
       v-bind:vocabularyDB="this.$firebaseRefs.vocabularyDB"
     />
-    <vue-editor></vue-editor>
+    <vue-editor
+      :editorOptions="this.editorOptions"
+    >
+    </vue-editor>
   </div>
 </template>
 
@@ -45,7 +48,7 @@ export default {
     });
   },
   computed: {
-    ...mapState(["isInsertModalOpen"])
+    ...mapState(["isInsertModalOpen", "editorOptions"])
   },
   firebase: {
     vocabularyDB: db.ref("vocabulary")
@@ -70,9 +73,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   width: 100vw;
-  text-align: center;
   color: #2c3e50;
   display: grid;
   grid-template-columns: 1fr 4fr;
+}
+
+vue-editor {
+  height: 100%;
 }
 </style>

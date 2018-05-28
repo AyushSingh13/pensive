@@ -11,7 +11,14 @@ export default new Vuex.Store({
         existingWords: [],
         searchTerm: "",
         isInsertModalOpen: false,
-        wordsApiKey: configSettings.wordsApiKey
+        wordsApiKey: configSettings.wordsApiKey,
+        editorOptions: {
+            modules: {
+                toolbar: false
+            },
+            placeholder: "Write here...",
+            theme: "snow"
+        }
     },
     getters: {
         searchTerm: state => state.searchTerm,

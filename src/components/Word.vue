@@ -22,5 +22,6 @@ export default {
 <style scoped>
 #word {
   border-bottom: 1px solid gray;
+  padding: 0.5em;
 }
 </style>

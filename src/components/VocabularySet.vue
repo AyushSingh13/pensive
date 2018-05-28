@@ -2,8 +2,8 @@
   <div
     id="vocabPanel"
   >
-      <input type="text" v-model="searchTerm" placeholder="Search words" />
-      <button v-on:click="this.toggleInsertModal">Insert</button>
+      <input type="text" class="formControls" v-model="searchTerm" placeholder="Word search..." />
+      <button id="wordInsertBtn" class="formControls" v-on:click="this.toggleInsertModal">Insert</button>
       <div
         v-for="wordObj of this.filteredVocabulary(this.includedInWordObj)"
         v-bind:key="wordObj.word"
@@ -59,7 +59,20 @@ export default {
   overflow: auto;
 }
 
+.formControls {
+  outline: none;
+  border: none;
+}
+
 input {
-  width: 90%;
+  width: 100%;
+  padding: 1em;
+}
+
+#wordInsertBtn {
+  width: 100%;
+  height: 3em;
+  color: white;
+  background-color: black;
 }
 </style>
