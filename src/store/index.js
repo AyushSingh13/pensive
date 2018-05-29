@@ -13,6 +13,7 @@ export default new Vuex.Store({
         isInsertModalOpen: false,
         wordsApiKey: configSettings.wordsApiKey,
         editorOptions: {
+            scrollingContainer: `#quillEditor`,
             modules: {
                 toolbar: false
             },
@@ -53,6 +54,8 @@ export default new Vuex.Store({
                     let fbKeys, fbVals;
                     [fbKeys, fbVals] = [Object.keys(snap.val()), Object.values(snap.val())];
                     commit('updateExistingWords', { updatedWordsArray: fbVals.map((obj, index) => Object.assign(obj, { key: fbKeys[index] })) });
+                } else {
+                    commit('updateExistingWords', { updatedWordsArray: [] })
                 }
             });
         }

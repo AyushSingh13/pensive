@@ -6,7 +6,7 @@
       <em>{{ def.definition }}</em>
       <br /><br />
     </div>
-    <button v-on:click="deleteFromDB">X</button>
+    <button v-on:click="deleteFromDB(fbKey)">X</button>
   </div>
 </template>
 
@@ -19,11 +19,9 @@ export default {
     definitions: Array
   },
   methods: {
-    deleteFromDB() {
+    deleteFromDB(key) {
       // TODO: Find a less hacky way of doing this
-      this.$parent.$parent.$firebaseRefs.vocabularyDB
-        .child(this.fbKey)
-        .remove();
+      this.$parent.$parent.$firebaseRefs.vocabularyDB.child(key).remove();
     }
   }
 };
