@@ -7,10 +7,11 @@
     <div id="vocabPanel">
       <div
         v-for="wordObj of this.filteredVocabulary(this.includedInWordObj)"
-        v-bind:key="wordObj.word"
+        v-bind:key="wordObj.key"
         id="vocabResults"
       >
         <Word
+          v-bind:fbKey="wordObj.key"
           v-bind:word="wordObj.word"
           v-bind:definitions="wordObj.definitions"
        />
@@ -80,5 +81,9 @@ input {
   height: 3em;
   color: white;
   background-color: #263238;
+}
+
+#wordInsertBtn:hover {
+  background-color: black;
 }
 </style>

@@ -16,7 +16,15 @@ export default new Vuex.Store({
             modules: {
                 toolbar: false
             },
-            placeholder: "Write your masterpiece while including some fancy words here...",
+            placeholder: `Write your masterpiece while including some fancy words here...
+            
+            This editor uses markdown so you can start off with some of the basics such as:
+
+                    - # for headings
+                    - **bold**
+                    - _italics_
+                    - and more!
+            `,
             theme: "snow"
         }
     },
@@ -41,7 +49,10 @@ export default new Vuex.Store({
         getArrayOfAllWordsFromDB: ({ commit }, payload) => {
             payload.db.on("value", snap => {
                 if (snap.val() != null && snap.val() != undefined) {
-                    commit('updateExistingWords', { updatedWordsArray: Object.values(snap.val()) })
+                    // TODO: Functional
+                    let fbKeys, fbVals;
+                    [fbKeys, fbVals] = [Object.keys(snap.val()), Object.values(snap.val())];
+                    commit('updateExistingWords', { updatedWordsArray: fbVals.map((obj, index) => Object.assign(obj, { key: fbKeys[index] })) });
                 }
             });
         }
