@@ -2,12 +2,10 @@
   <div id="app">
     <insert-words
       v-if="this.isInsertModalOpen"
-      v-bind:vocabularyDB="this.$firebaseRefs.vocabularyDB"
     />
-    <VocabularySet
-      v-bind:vocabularyDB="this.$firebaseRefs.vocabularyDB"
-    />
+    <VocabularySet />
     <vue-editor
+      id="quillEditor"
       :editorOptions="this.editorOptions"
     >
     </vue-editor>
@@ -15,14 +13,8 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { mapState } from "vuex";
 import store from "./store";
-
-// Firebase
-import VueFire from "vuefire";
-import firebase from "firebase/app";
-import "firebase/database";
 
 // Custom Components
 import Word from "./components/Word.vue";
@@ -30,29 +22,20 @@ import VocabularySet from "./components/VocabularySet.vue";
 import InsertWords from "./components/InsertWords.vue";
 
 // Third-party Components
-import { VueEditor } from "vue2-editor";
+import { VueEditor, Quill } from "vue2-editor";
 
-// Settings
-import configSettings from "./assets/configSettings.json";
-
-Vue.use(VueFire);
-
-let firebaseApp = firebase.initializeApp(configSettings.firebaseConfig);
-let db = firebaseApp.database();
+let Font = Quill.import("formats/font");
+Font.whitelist = ["roboto"];
+Quill.register(Font, true);
 
 export default {
   name: "app",
   store,
   mounted() {
-    this.$store.dispatch("getArrayOfAllWordsFromDB", {
-      db: this.$firebaseRefs.vocabularyDB
-    });
+    this.$store.dispatch("getArrayOfAllWordsFromDB");
   },
   computed: {
     ...mapState(["isInsertModalOpen", "editorOptions"])
-  },
-  firebase: {
-    vocabularyDB: db.ref("vocabulary")
   },
   components: {
     Word,
@@ -64,6 +47,8 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
 html,
 body {
   overflow: hidden;
@@ -86,5 +71,9 @@ body {
 
 vue-editor {
   height: 100%;
+}
+
+.ql-font-roboto {
+  font-family: "Roboto";
 }
 </style>

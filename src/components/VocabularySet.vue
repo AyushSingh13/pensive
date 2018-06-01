@@ -4,7 +4,10 @@
       <input type="text" class="formControls" v-model="searchTerm" placeholder="Word search..." />
       <button id="wordInsertBtn" class="formControls" v-on:click="this.toggleInsertModal">Insert Words</button>
     </div>
-    <div id="vocabPanel">
+    <div id="emptyVocabPanel" v-if="this.filteredVocabulary(this.includedInWordObj).length == 0">
+      <p>Insert new words so you can view them here while writing your masterpiece.</p>
+    </div>
+    <div id="vocabPanel" v-else>
       <div
         v-for="wordObj of this.filteredVocabulary(this.includedInWordObj)"
         v-bind:key="wordObj.key"
@@ -14,8 +17,8 @@
           v-bind:fbKey="wordObj.key"
           v-bind:word="wordObj.word"
           v-bind:definitions="wordObj.definitions"
-       />
-    </div>
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -35,9 +38,6 @@ export default {
       // TODO: Add includedInDefinitions(wordObj.definitions)
       return this.includedInWord(wordObj.word);
     }
-  },
-  props: {
-    vocabularyDB: Object
   },
   components: {
     Word
@@ -62,6 +62,15 @@ export default {
   max-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+#emptyVocabPanel {
+  width: 100%;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
 }
 
 .formControls {

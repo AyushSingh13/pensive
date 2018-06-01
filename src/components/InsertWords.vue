@@ -7,6 +7,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { vocabularyRef } from "../firebase";
 
 export default {
   name: "InsertWords",
@@ -48,7 +49,7 @@ export default {
       return wordsArray.filter(word => !this.wordAlreadyExists(word));
     },
     writeToJson(data) {
-      this.vocabularyDB.push({
+      vocabularyRef.push({
         word: data.word,
         definitions: this.returnDefinitionsArray(data.results)
       });
@@ -60,9 +61,6 @@ export default {
         );
       }
     }
-  },
-  props: {
-    vocabularyDB: Object
   }
 };
 </script>
@@ -71,7 +69,7 @@ export default {
 #insertModal {
   width: 400px;
   height: 200px;
-  position: fixed;
+  position: absolute;
   left: 500px;
   z-index: 100000;
   background: #263238;

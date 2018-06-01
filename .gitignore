@@ -22,4 +22,4 @@ yarn.lock
 *.sw*
 
 # API Config Settings
-./src/assets/configSettings.json
+./settings.js

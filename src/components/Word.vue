@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { vocabularyRef } from "../firebase";
+
 export default {
   name: "Word",
   props: {
@@ -20,8 +22,7 @@ export default {
   },
   methods: {
     deleteFromDB(key) {
-      // TODO: Find a less hacky way of doing this
-      this.$parent.$parent.$firebaseRefs.vocabularyDB.child(key).remove();
+      vocabularyRef.child(key).remove();
     }
   }
 };

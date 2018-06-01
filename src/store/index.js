@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+Vue.use(Vuex)
 
 // Settings
-import configSettings from "../assets/configSettings.json";
-
-Vue.use(Vuex);
+import { wordsApiKey } from "../settings";
+import { vocabularyRef } from "../firebase";
 
 export default new Vuex.Store({
     state: {
         existingWords: [],
         searchTerm: "",
         isInsertModalOpen: false,
-        wordsApiKey: configSettings.wordsApiKey,
+        wordsApiKey: wordsApiKey,
         editorOptions: {
             scrollingContainer: `#quillEditor`,
             modules: {
@@ -47,8 +47,8 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        getArrayOfAllWordsFromDB: ({ commit }, payload) => {
-            payload.db.on("value", snap => {
+        getArrayOfAllWordsFromDB: ({ commit }) => {
+            vocabularyRef.on("value", snap => {
                 if (snap.val() != null && snap.val() != undefined) {
                     // TODO: Functional
                     let fbKeys, fbVals;
