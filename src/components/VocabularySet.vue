@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <input type="text" class="formControls" v-model="searchTerm" placeholder="Word search..." />
-      <button id="wordInsertBtn" class="formControls" v-on:click="this.toggleInsertModal">Insert Words</button>
+      <input type="text" class="formControls" v-model="searchTerm" placeholder="word search..." />
+      <button id="wordInsertBtn" class="formControls" v-on:click="this.toggleInsertModal">insert new words</button>
     </div>
     <div id="emptyVocabPanel" v-if="this.filteredVocabulary(this.includedInWordObj).length == 0">
       <p>Insert new words so you can view them here while writing your masterpiece.</p>
@@ -89,10 +89,15 @@ input {
   font-size: 1em;
   height: 3em;
   color: white;
-  background-color: #263238;
+  background-color: #fad390;
+  transition: background-color 0.5s;
 }
 
 #wordInsertBtn:hover {
-  background-color: black;
+  background-color: #f8c291;
+}
+
+#wordInsertBtn:active {
+  background-color: #f6b93b;
 }
 </style>
