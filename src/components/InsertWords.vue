@@ -1,12 +1,18 @@
 <template>
+  <div 
+    class="modalContainer"
+    ref="modalContainer"
+    v-on:click="(event) => (event.target == this.$refs.modalContainer) ? this.toggleInsertModal() : null"
+  >
     <div id="insertModal">
         <textarea v-model="textareaValue"></textarea>
         <button v-on:click="handleInsert">Insert Word</button>
     </div>
+  </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { vocabularyRef } from "../firebase";
 
 export default {
@@ -18,6 +24,7 @@ export default {
     ...mapState(["wordsApiKey", "existingWords"])
   },
   methods: {
+    ...mapMutations(["toggleInsertModal"]),
     wordAlreadyExists(word) {
       return this.existingWords.map(wordObj => wordObj.word).includes(word);
     },
@@ -66,12 +73,22 @@ export default {
 </script>
 
 <style scoped>
+.modalContainer {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #insertModal {
-  width: 400px;
-  height: 200px;
-  position: absolute;
-  left: 500px;
-  z-index: 100000;
   background: #263238;
+  width: 50%;
+  height: 50%;
 }
 </style>
