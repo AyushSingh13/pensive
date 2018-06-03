@@ -43,22 +43,23 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Anonymous+Pro|Roboto+Mono");
+
 html,
 body {
-  overflow: auto;
-}
-
-body {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
   margin: 0;
   padding: 0;
 }
 
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Anonymous Pro", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   color: #2c3e50;
   display: grid;
   grid-template-columns: 1fr 4fr;
@@ -85,7 +86,7 @@ vue-editor {
 }
 
 .transition-btn {
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 #neg-btn:hover {
