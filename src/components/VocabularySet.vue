@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div id="vocabPanel">
     <div>
       <input type="text" class="clean-btn" v-model="searchTerm" placeholder="word search..." />
-      <button id="wordInsertBtn" class="clean-btn" v-on:click="this.toggleInsertModal">insert new words</button>
+      <button id="wordInsertBtn" class="clean-btn" v-on:click="this.toggleInsertModal">add new words</button>
     </div>
-    <div id="emptyVocabPanel" v-if="this.filteredVocabulary(this.includedInWordObj).length == 0">
-      <p>Insert new words so you can view them here while writing your masterpiece.</p>
+    <div id="emptyList" v-if="this.filteredVocabulary(this.includedInWordObj).length == 0">
+      Insert new words so you can view them here while writing your masterpiece.
     </div>
-    <div id="vocabPanel" v-else>
+    <div id="populatedList" v-else>
       <div
         v-for="wordObj of this.filteredVocabulary(this.includedInWordObj)"
         v-bind:key="wordObj.key"
@@ -58,19 +58,26 @@ export default {
 
 <style scoped>
 #vocabPanel {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  max-height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  max-height: 100%;
 }
 
-#emptyVocabPanel {
-  width: 100%;
-  max-height: 100vh;
+#emptyList {
+  height: 100%;
+  padding: 0.5em;
+  flex: 1;
   display: flex;
-  flex-direction: row;
-  align-content: center;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+}
+
+#populatedList {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
 }
 
 input {
@@ -84,15 +91,11 @@ input {
   font-size: 1em;
   height: 3em;
   color: white;
-  background-color: #fad390;
+  background-color: #b2bec3;
   transition: background-color 0.5s;
 }
 
 #wordInsertBtn:hover {
-  background-color: #f8c291;
-}
-
-#wordInsertBtn:active {
-  background-color: #f6b93b;
+  background-color: #00b894;
 }
 </style>

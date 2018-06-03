@@ -116,9 +116,7 @@ export default {
 }
 
 .modal {
-  /* display: grid;
-  grid-template-rows: 1fr 8fr 1fr; */
-  width: 50%;
+  width: 30%;
   border-radius: 0.3em;
   background: white;
   overflow: hidden;
