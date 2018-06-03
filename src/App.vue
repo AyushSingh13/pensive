@@ -22,11 +22,7 @@ import VocabularySet from "./components/VocabularySet.vue";
 import InsertWords from "./components/InsertWords.vue";
 
 // Third-party Components
-import { VueEditor, Quill } from "vue2-editor";
-
-let Font = Quill.import("formats/font");
-Font.whitelist = ["roboto"];
-Quill.register(Font, true);
+import { VueEditor } from "vue2-editor";
 
 export default {
   name: "app",
@@ -47,15 +43,14 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Roboto");
-
 html,
 body {
-  overflow: hidden;
+  overflow: auto;
 }
 
 body {
   margin: 0;
+  padding: 0;
 }
 
 #app {
@@ -71,9 +66,39 @@ body {
 
 vue-editor {
   height: 100%;
+  border: none;
 }
 
-.ql-font-roboto {
-  font-family: "Roboto";
+.card {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.clean-btn {
+  text-decoration: none;
+  border: none;
+  outline: none;
+  padding: 1em;
+}
+
+.rounded-btn {
+  border-radius: 0.3em;
+}
+
+.transition-btn {
+  transition: 0.3s;
+}
+
+#neg-btn:hover {
+  background-color: #d63031;
+  color: white;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 </style>
