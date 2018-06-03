@@ -7,14 +7,14 @@
   >
     <div id="insertModal" class="modal card">
       <div class="modal-header">
-        <p>insert</p>
-        <button v-on:click="this.toggleInsertModal">&times;</button>
+        <p>add a new word</p>
       </div>
       <div class="modal-content">
-        <textarea style="flex-grow: 1" v-model="textareaValue" autofocus></textarea>
+        <textarea placeholder="Separate words with a newline" style="flex-grow: 1" v-model="textareaValue" autofocus></textarea>
       </div>
       <div class="modal-footer">
-        <button v-on:click="handleInsert">insert</button>
+        <button id="neg-btn" class="clean-btn rounded-btn transition-btn" v-on:click="this.toggleInsertModal">cancel</button>
+        <button id="add-btn" class="clean-btn rounded-btn transition-btn" v-on:click="handleInsert">add</button>
       </div>
     </div>
   </div>
@@ -87,6 +87,16 @@ export default {
 </script>
 
 <style scoped>
+* {
+  padding: 0;
+  margin: 0;
+}
+
+#add-btn:hover {
+  background-color: #00b894;
+  color: white;
+}
+
 .modal-container {
   position: fixed;
   z-index: 1;
@@ -103,27 +113,24 @@ export default {
 #insertModal {
   color: black;
   height: fit-content;
-  /* background-color: #b2bec3; */
 }
 
 .modal {
-  display: grid;
-  grid-template-rows: 1fr 8fr 1fr;
-  width: 20%;
-  height: 80%;
-  border-radius: 1em;
+  /* display: grid;
+  grid-template-rows: 1fr 8fr 1fr; */
+  width: 50%;
+  border-radius: 0.3em;
   background: white;
-}
-
-.card {
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 }
 
 .modal-header {
   display: flex;
-  justify-content: space-between;
-  padding: 0.5em;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #dfe6e9;
+  padding: 0.2em 0.5em;
+  font-size: 1.5em;
+  color: white;
+  background-color: #0984e3;
 }
 
 .modal-content {
@@ -135,30 +142,16 @@ export default {
 
 .modal-footer {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   padding: 1em;
-  border-top: 1px solid gray;
-}
-
-.custom-btn:hover {
-  background-color: #00b894;
-  color: white;
-}
-
-#closeModalButton {
-  transition: 0.3s;
-}
-
-#closeModalButton:hover {
-  background-color: #d63031;
-  color: white;
 }
 
 textarea {
   border: none;
   resize: none;
-  width: 100%;
-  font-size: 2em;
+  height: 10em;
+  padding: 1em;
+  font-size: 1.5em;
 }
 
 @keyframes fade-in {

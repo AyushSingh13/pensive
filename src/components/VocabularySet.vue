@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <input type="text" class="formControls" v-model="searchTerm" placeholder="word search..." />
-      <button id="wordInsertBtn" class="formControls" v-on:click="this.toggleInsertModal">insert new words</button>
+      <input type="text" class="clean-btn" v-model="searchTerm" placeholder="word search..." />
+      <button id="wordInsertBtn" class="clean-btn" v-on:click="this.toggleInsertModal">insert new words</button>
     </div>
     <div id="emptyVocabPanel" v-if="this.filteredVocabulary(this.includedInWordObj).length == 0">
       <p>Insert new words so you can view them here while writing your masterpiece.</p>
@@ -71,11 +71,6 @@ export default {
   flex-direction: row;
   align-content: center;
   justify-content: center;
-}
-
-.formControls {
-  outline: none;
-  border: none;
 }
 
 input {
