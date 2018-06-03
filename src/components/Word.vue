@@ -1,12 +1,11 @@
 <template>
   <div id="word">
-    <h3>{{ word }}</h3>
+    <h3>{{ word }} <button id="neg-btn" class="clean-btn rounded-btn transition-btn" v-on:click="deleteFromDB(fbKey)">&times;</button></h3>
     <div v-for="def of definitions" v-bind:key="def.definition">
       <strong>{{ def.partOfSpeech }}:</strong>
       <em>{{ def.definition }}</em>
       <br /><br />
     </div>
-    <button v-on:click="deleteFromDB(fbKey)">X</button>
   </div>
 </template>
 
@@ -30,7 +29,9 @@ export default {
 
 <style scoped>
 #word {
-  border-bottom: 1px solid gray;
+  border: 0.1px solid #b2bec3;
   padding: 0.5em;
+  margin: 0.3em;
+  border-radius: 0.3em;
 }
 </style>
