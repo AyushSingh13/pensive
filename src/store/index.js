@@ -10,6 +10,7 @@ export default new Vuex.Store({
     state: {
         existingWords: [],
         searchTerm: "",
+        textareaValue: "",
         isInsertModalOpen: false,
         wordsApiKey: wordsApiKey,
         editorOptions: {
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     },
     getters: {
         searchTerm: state => state.searchTerm,
+        textareaValue: state => state.textareaValue,
         filteredVocabulary: state => filterFunc => (
             state.existingWords.filter(filterFunc)
         )
@@ -44,6 +46,9 @@ export default new Vuex.Store({
         },
         updateSearchTermValue: (state, newSearchTerm) => {
             state.searchTerm = newSearchTerm
+        },
+        updateTextareaValue: (state, newTextareaValue) => {
+            state.textareaValue = newTextareaValue
         }
     },
     actions: {

@@ -8,13 +8,13 @@
     <div id="insertModal" class="modal card">
       <div class="modal-header">
         <p>insert</p>
-        <button id="closeModal" v-on:click="this.toggleInsertModal">&times;</button>
+        <button v-on:click="this.toggleInsertModal">&times;</button>
       </div>
       <div class="modal-content">
-        <textarea style="flex-grow: 1" v-model="textareaValue"></textarea>
+        <textarea style="flex-grow: 1" v-model="textareaValue" autofocus></textarea>
       </div>
       <div class="modal-footer">
-        <button v-on:click="handleInsert">insert words</button>
+        <button v-on:click="handleInsert">insert</button>
       </div>
     </div>
   </div>
@@ -26,14 +26,19 @@ import { vocabularyRef } from "../firebase";
 
 export default {
   name: "InsertWords",
-  data: () => ({
-    textareaValue: ""
-  }),
   computed: {
-    ...mapState(["wordsApiKey", "existingWords"])
+    ...mapState(["wordsApiKey", "existingWords"]),
+    textareaValue: {
+      get() {
+        return this.$store.getters.textareaValue;
+      },
+      set(newTextareaValue) {
+        this.updateTextareaValue(newTextareaValue);
+      }
+    }
   },
   methods: {
-    ...mapMutations(["toggleInsertModal"]),
+    ...mapMutations(["toggleInsertModal", "updateTextareaValue"]),
     wordAlreadyExists(word) {
       return this.existingWords.map(wordObj => wordObj.word).includes(word);
     },
@@ -92,18 +97,21 @@ export default {
   justify-content: center;
   align-items: center;
   animation-name: fade-in;
-  animation-duration: 0.5s;
+  animation-duration: 0.25s;
 }
 
 #insertModal {
   color: black;
+  height: fit-content;
+  /* background-color: #b2bec3; */
 }
 
 .modal {
   display: grid;
   grid-template-rows: 1fr 8fr 1fr;
-  width: 50%;
-  height: 50%;
+  width: 20%;
+  height: 80%;
+  border-radius: 1em;
   background: white;
 }
 
@@ -115,6 +123,7 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 0.5em;
+  border-bottom: 1px solid gray;
 }
 
 .modal-content {
@@ -128,12 +137,28 @@ export default {
   display: flex;
   justify-content: center;
   padding: 1em;
+  border-top: 1px solid gray;
 }
 
-#closeModal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.custom-btn:hover {
+  background-color: #00b894;
+  color: white;
+}
+
+#closeModalButton {
+  transition: 0.3s;
+}
+
+#closeModalButton:hover {
+  background-color: #d63031;
+  color: white;
+}
+
+textarea {
+  border: none;
+  resize: none;
+  width: 100%;
+  font-size: 2em;
 }
 
 @keyframes fade-in {
