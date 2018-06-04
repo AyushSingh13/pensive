@@ -1,5 +1,6 @@
 <template>
   <!-- TODO: Make separate Modal Component -->
+  <transition name="fade">
   <div 
     class="modal-container"
     ref="modalContainer"
@@ -18,6 +19,7 @@
       </div>
     </div>
   </div>
+  </transition>
 </template>
 
 <script>
@@ -106,8 +108,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation-name: fade-in;
-  animation-duration: 0.25s;
 }
 
 #insertModal {
@@ -152,21 +152,13 @@ textarea {
   font-size: 1.5em;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease-out;
 }
 
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
