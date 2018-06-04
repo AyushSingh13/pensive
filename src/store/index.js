@@ -41,8 +41,8 @@ export default new Vuex.Store({
         toggleInsertModal: state => {
             state.isInsertModalOpen = !state.isInsertModalOpen
         },
-        updateExistingWords: (state, payload) => {
-            state.existingWords = payload.updatedWordsArray
+        updateExistingWords: (state, { updatedWordsArray }) => {
+            state.existingWords = updatedWordsArray
         },
         updateSearchTermValue: (state, newSearchTerm) => {
             state.searchTerm = newSearchTerm

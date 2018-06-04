@@ -4,12 +4,12 @@
       <input type="text" class="clean-btn" v-model="searchTerm" placeholder="word search..." />
       <button id="wordInsertBtn" class="clean-btn" v-on:click="this.toggleInsertModal">add new words</button>
     </div>
-    <div id="emptyList" v-if="this.filteredVocabulary(this.includedInWordObj).length == 0">
+    <div id="emptyList" v-if="!this.filteredVocabulary(this.includedInWordObj)">
       Insert new words so you can view them here while writing your masterpiece.
     </div>
     <div id="populatedList" v-else>
       <div
-        v-for="wordObj of this.filteredVocabulary(this.includedInWordObj)"
+        v-for="wordObj in this.filteredVocabulary(this.includedInWordObj)"
         v-bind:key="wordObj.key"
         id="vocabResults"
       >

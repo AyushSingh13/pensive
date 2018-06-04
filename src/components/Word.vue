@@ -1,10 +1,15 @@
 <template>
-  <div id="word">
-    <h3>{{ word }} <button id="neg-btn" class="clean-btn rounded-btn transition-btn" v-on:click="deleteFromDB(fbKey)">&times;</button></h3>
-    <div v-for="def of definitions" v-bind:key="def.definition">
-      <strong>{{ def.partOfSpeech }}:</strong>
-      <em>{{ def.definition }}</em>
-      <br /><br />
+  <div v-on:click="this.toggleExpandWord" id="wordCard">
+    <div id="label">
+      <h3> {{ word }} </h3>
+      <button id="neg-btn" class="clean-btn rounded-btn transition-btn" v-on:click="deleteFromDB(fbKey)">&times;</button>
+    </div>
+    <div v-if="this.isExpanded" id="content">
+      <div v-for="def of definitions" v-bind:key="def.definition">
+        <strong>{{ def.partOfSpeech }}:</strong>
+        <em>{{ def.definition }}</em>
+        <br /><br />
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +19,9 @@ import { vocabularyRef } from "../firebase";
 
 export default {
   name: "Word",
+  data: () => ({
+    isExpanded: false
+  }),
   props: {
     fbKey: String,
     word: String,
@@ -22,13 +30,26 @@ export default {
   methods: {
     deleteFromDB(key) {
       vocabularyRef.child(key).remove();
+    },
+    toggleExpandWord() {
+      this.isExpanded = !this.isExpanded;
     }
   }
 };
 </script>
 
 <style scoped>
-#word {
+div {
+  margin: 0;
+  padding: 0;
+}
+
+#label {
+  display: flex;
+  justify-content: space-between;
+}
+
+#wordCard {
   border: 0.1px solid #b2bec3;
   padding: 0.5em;
   margin: 0.3em;

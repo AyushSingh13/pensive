@@ -125,7 +125,7 @@ export default {
 .modal-header {
   display: flex;
   border-bottom: 1px solid #dfe6e9;
-  padding: 0.2em 0.5em;
+  padding: 0.2em 0.8em;
   font-size: 1.5em;
   color: white;
   background-color: #0984e3;
