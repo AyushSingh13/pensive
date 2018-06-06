@@ -72,7 +72,7 @@ export default {
       return wordsArray.filter(word => !this.wordAlreadyExists(word));
     },
     writeToJson(data) {
-      vocabularyRef.push({
+      vocabularyRef.add({
         word: data.word,
         definitions: this.returnDefinitionsArray(data.results)
       });
@@ -150,15 +150,5 @@ textarea {
   height: 10em;
   padding: 1em;
   font-size: 1.5em;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease-out;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

@@ -47,7 +47,7 @@ export default {
 
 html,
 body {
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 100vh;
   width: 100vw;
   margin: 0;
@@ -66,7 +66,7 @@ body {
 }
 
 vue-editor {
-  height: 100%;
+  max-height: 100%;
   border: none;
 }
 
@@ -79,6 +79,7 @@ vue-editor {
   border: none;
   outline: none;
   padding: 1em;
+  cursor: pointer;
 }
 
 .rounded-btn {
@@ -94,12 +95,13 @@ vue-editor {
   color: white;
 }
 
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -41,8 +41,8 @@ export default new Vuex.Store({
         toggleInsertModal: state => {
             state.isInsertModalOpen = !state.isInsertModalOpen
         },
-        updateExistingWords: (state, { updatedWordsArray }) => {
-            state.existingWords = updatedWordsArray
+        updateExistingWords: (state, { updatedWords }) => {
+            state.existingWords = updatedWords;
         },
         updateSearchTermValue: (state, newSearchTerm) => {
             state.searchTerm = newSearchTerm
@@ -53,16 +53,10 @@ export default new Vuex.Store({
     },
     actions: {
         getArrayOfAllWordsFromDB: ({ commit }) => {
-            vocabularyRef.on("value", snap => {
-                if (snap.val() != null && snap.val() != undefined) {
-                    // TODO: Functional
-                    let fbKeys, fbVals;
-                    [fbKeys, fbVals] = [Object.keys(snap.val()), Object.values(snap.val())];
-                    commit('updateExistingWords', { updatedWordsArray: fbVals.map((obj, index) => Object.assign(obj, { key: fbKeys[index] })) });
-                } else {
-                    commit('updateExistingWords', { updatedWordsArray: [] })
-                }
-            });
+            vocabularyRef.onSnapshot(collection => {
+                const updatedWords = collection.docs.map(doc => Object.assign(doc.data(), { id: doc.id }))
+                commit('updateExistingWords', { updatedWords: updatedWords })
+            })
         }
     }
 })

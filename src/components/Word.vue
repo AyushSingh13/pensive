@@ -1,8 +1,8 @@
 <template>
-  <div v-on:click="this.toggleExpandWord" id="wordCard">
-    <div id="label">
+  <div id="wordCard">
+    <div v-on:click="this.toggleExpandWord" id="label" class="clean-btn">
       <h3> {{ word }} </h3>
-      <button id="neg-btn" class="clean-btn rounded-btn transition-btn" v-on:click="deleteFromDB(fbKey)">&times;</button>
+      <button id="neg-btn" class="clean-btn rounded-btn transition-btn" v-on:click="deleteFromDB(id)">&times;</button>
     </div>
     <div v-if="this.isExpanded" id="content">
       <div v-for="def of definitions" v-bind:key="def.definition">
@@ -23,13 +23,20 @@ export default {
     isExpanded: false
   }),
   props: {
-    fbKey: String,
+    id: String,
     word: String,
     definitions: Array
   },
   methods: {
-    deleteFromDB(key) {
-      vocabularyRef.child(key).remove();
+    deleteFromDB(id) {
+      vocabularyRef
+        .doc(id)
+        .delete()
+        .catch(err =>
+          console.log(
+            `WordDeleteError: Couldn't delete ${this.word} due to ${err}`
+          )
+        );
     },
     toggleExpandWord() {
       this.isExpanded = !this.isExpanded;
@@ -49,10 +56,15 @@ div {
   justify-content: space-between;
 }
 
+#content {
+  transition: max-height 4s ease-out;
+}
+
 #wordCard {
   border: 0.1px solid #b2bec3;
   padding: 0.5em;
   margin: 0.3em;
   border-radius: 0.3em;
+  transition: height 4s ease-out;
 }
 </style>
