@@ -9,6 +9,7 @@ import { vocabularyRef } from "../firebase";
 export default new Vuex.Store({
     state: {
         existingWords: [],
+        activeSidebar: "VocabularySet",
         searchTerm: "",
         textareaValue: "",
         isInsertModalOpen: false,
@@ -49,14 +50,17 @@ export default new Vuex.Store({
         },
         updateTextareaValue: (state, newTextareaValue) => {
             state.textareaValue = newTextareaValue
+        },
+        changeSidebarTab: (state, sidebarValue) => {
+            state.activeSidebar = sidebarValue
         }
     },
     actions: {
-        getArrayOfAllWordsFromDB: ({ commit }) => {
+        getArrayOfAllWordsFromDB: ({ commit }) => (
             vocabularyRef.onSnapshot(collection => {
                 const updatedWords = collection.docs.map(doc => Object.assign(doc.data(), { id: doc.id }))
                 commit('updateExistingWords', { updatedWords: updatedWords })
             })
-        }
+        )
     }
 })
