@@ -3,7 +3,7 @@
     <insert-words
       v-if="this.isInsertModalOpen"
     />
-    <VocabularySet />
+    <Sidebar />
     <vue-editor
       id="quillEditor"
       :editorOptions="this.editorOptions"
@@ -17,9 +17,8 @@ import { mapState } from "vuex";
 import store from "./store";
 
 // Custom Components
-import Word from "./components/Word.vue";
-import VocabularySet from "./components/VocabularySet.vue";
 import InsertWords from "./components/InsertWords.vue";
+import Sidebar from "./components/Sidebar.vue";
 
 // Third-party Components
 import { VueEditor } from "vue2-editor";
@@ -34,10 +33,9 @@ export default {
     ...mapState(["isInsertModalOpen", "editorOptions"])
   },
   components: {
-    Word,
-    VocabularySet,
     VueEditor,
-    InsertWords
+    InsertWords,
+    Sidebar
   }
 };
 </script>
