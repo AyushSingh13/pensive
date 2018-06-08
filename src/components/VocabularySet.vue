@@ -1,7 +1,7 @@
 <template>
   <div id="vocabPanel">
     <div>
-      <input type="text" class="clean-btn" v-model="searchTerm" placeholder="word search..." />
+      <SearchInput />
       <button id="wordInsertBtn" class="clean-btn" v-on:click="this.toggleInsertModal">add new words</button>
     </div>
     <div id="emptyList" v-if="!this.filteredVocabulary(this.includedInWordObj).length">
@@ -25,7 +25,8 @@
 
 <script>
 import Word from "./Word.vue";
-import { mapMutations, mapGetters } from "vuex";
+import SearchInput from "./SearchInput.vue";
+import { mapMutations, mapGetters, mapState } from "vuex";
 
 export default {
   name: "VocabularySet",
@@ -40,17 +41,11 @@ export default {
     }
   },
   components: {
-    Word
+    Word,
+    SearchInput
   },
   computed: {
-    searchTerm: {
-      get() {
-        return this.$store.getters.searchTerm;
-      },
-      set(newSearchValue) {
-        this.updateSearchTermValue(newSearchValue);
-      }
-    },
+    ...mapState(["searchTerm"]),
     ...mapGetters(["filteredVocabulary"])
   }
 };
@@ -78,12 +73,6 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   flex: 1;
-}
-
-input {
-  width: 100%;
-  font-size: 1em;
-  padding: 1em;
 }
 
 #wordInsertBtn {
