@@ -1,18 +1,22 @@
 <template>
+  <transition name="expand">
   <div id="wordCard">
     <div v-on:click="this.toggleExpandWord" id="label" class="clean-btn">
-      <h3> {{ word }} </h3>
+      <h4> {{ word }} </h4>
       <button id="neg-btn" class="clean-btn rounded-btn transition-btn" v-on:click="deleteFromDB(id)">&times;</button>
     </div>
-    <div v-if="this.isExpanded" id="content">
-      <div v-for="def of definitions" v-bind:key="def.definition">
-        <strong>{{ def.partOfSpeech }}:</strong>
-        <em>{{ def.definition }}</em>
-        <br /><br />
+    <!-- <transition name="expand"> -->
+      <div v-if="this.isExpanded" id="content">
+        <div v-for="def of definitions" v-bind:key="def.definition">
+          <strong>{{ def.partOfSpeech }}:</strong>
+          <em>{{ def.definition }}</em>
+          <br /><br />
+        </div>
       </div>
-    </div>
+    <!-- </transition> -->
   </div>
-</template>
+  </transition>
+</template> 
 
 <script>
 import { vocabularyRef } from "../firebase";
@@ -56,15 +60,21 @@ div {
   justify-content: space-between;
 }
 
-#content {
-  transition: max-height 4s ease-out;
-}
-
 #wordCard {
   border: 0.1px solid #b2bec3;
   padding: 0.5em;
   margin: 0.3em;
   border-radius: 0.3em;
   transition: height 4s ease-out;
+}
+
+.expand-enter-active,
+.expand-leave-active {
+  transition: height 0.3s ease-out;
+}
+
+.expand-enter,
+.expand-leave-to {
+  opacity: 0;
 }
 </style>

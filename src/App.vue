@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <insert-words
+    <InsertWords
       v-if="this.isInsertModalOpen"
     />
     <Sidebar />
-    <vue-editor
+    <!-- <vue-editor
       id="quillEditor"
       :editorOptions="this.editorOptions"
     >
-    </vue-editor>
+    </vue-editor> -->
+    <codemirror style="height: auto" v-model="markdown" :options="this.codeMirrorOptions"></codemirror>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import store from "./store";
 
 // Custom Components
@@ -22,27 +23,58 @@ import Sidebar from "./components/Sidebar.vue";
 
 // Third-party Components
 import { VueEditor } from "vue2-editor";
+import { codemirror } from "vue-codemirror";
+// language
+import "codemirror/mode/markdown/markdown.js";
+import "codemirror/mode/javascript/javascript.js";
+// theme css
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/base16-light.css";
 
 export default {
   name: "app",
   store,
   mounted() {
-    this.$store.dispatch("getArrayOfAllWordsFromDB");
+    this.$store.dispatch("getArrayOfAllWordsFromDb");
     this.$store.dispatch("getArrayOfAllDocsFromDb");
   },
+  methods: {
+    ...mapMutations(["updateMarkdownValue"])
+  },
   computed: {
-    ...mapState(["isInsertModalOpen", "editorOptions"])
+    ...mapState([
+      "isInsertModalOpen",
+      "editorOptions",
+      "codeMirrorOptions",
+      "markdown"
+    ]),
+    markdown: {
+      get() {
+        return this.$store.getters.markdown;
+      },
+      set(updatedMarkdown) {
+        this.updateMarkdownValue(updatedMarkdown);
+      }
+    }
   },
   components: {
     VueEditor,
     InsertWords,
-    Sidebar
+    Sidebar,
+    codemirror
   }
 };
 </script>
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Anonymous+Pro|Roboto+Mono");
+
+.CodeMirror {
+  font-size: 1.5em;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+}
 
 html,
 body {

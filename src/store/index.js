@@ -6,6 +6,21 @@ Vue.use(Vuex)
 import { wordsApiKey } from "../settings";
 import { vocabularyRef, documentsDbRef } from "../firebase";
 
+let markdown =
+    `
+# Heading 1
+## Heading 2
+### Heading 3
+This is _italics_ and this is **bold**.
+
+\`\`\`javascript
+let add = (x, y) => x + y;
+\`\`\`
+
+Maths:
+$\\omega$
+`;
+
 export default new Vuex.Store({
     state: {
         existingWords: [],
@@ -13,28 +28,38 @@ export default new Vuex.Store({
         activeSidebar: "VocabularySet",
         searchTerm: "",
         textareaValue: "",
+        markdown: markdown,
+        isMarkdownPreviewMode: false,
+        codeMirrorOptions: {
+            tabSize: 2,
+            lineWrapping: true,
+            mode: 'text/x-markdown',
+            theme: 'base16-light',
+            autofocus: true,
+        },
         isInsertModalOpen: false,
         wordsApiKey: wordsApiKey,
-        editorOptions: {
-            scrollingContainer: `#quillEditor`,
-            modules: {
-                toolbar: false
-            },
-            placeholder: `Write your masterpiece while including some fancy words here...
-            
-            This editor uses markdown so you can start off with some of the basics such as:
+        // editorOptions: {
+        //     scrollingContainer: `#quillEditor`,
+        //     modules: {
+        //         toolbar: false
+        //     },
+        //     placeholder: `Write your masterpiece while including some fancy words here...
 
-                    - # for headings
-                    - **bold**
-                    - _italics_
-                    - and more!
-            `,
-            theme: "snow"
-        }
+        //     This editor uses markdown so you can start off with some of the basics such as:
+
+        //             - # for headings
+        //             - **bold**
+        //             - _italics_
+        //             - and more!
+        //     `,
+        //     theme: "snow"
+        // }
     },
     getters: {
         searchTerm: state => state.searchTerm,
         textareaValue: state => state.textareaValue,
+        markdown: state => state.markdown,
         filteredVocabulary: state => filterFunc => (
             state.existingWords.filter(filterFunc)
         )
@@ -49,6 +74,9 @@ export default new Vuex.Store({
         updateSearchTermValue: (state, newSearchTerm) => {
             state.searchTerm = newSearchTerm
         },
+        updateMarkdownValue: (state, updatedMarkdownValue) => {
+            state.markdown = updatedMarkdownValue
+        },
         updateTextareaValue: (state, newTextareaValue) => {
             state.textareaValue = newTextareaValue
         },
@@ -60,7 +88,7 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        getArrayOfAllWordsFromDB: ({ commit }) => (
+        getArrayOfAllWordsFromDb: ({ commit }) => (
             vocabularyRef.onSnapshot(collection => {
                 const updatedWords = collection.docs.map(doc => Object.assign(doc.data(), { id: doc.id }))
                 commit('updateExistingWords', { updatedWords: updatedWords })

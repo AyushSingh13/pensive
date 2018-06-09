@@ -10,7 +10,7 @@
             v-for="docObj in this.documents"
             v-bind:key="docObj.id"
           >
-            <li>{{docObj.title}} : {{docObj.downloadURL}}</li>
+            <li>{{docObj.title}}</li>
           </ul>
       </div>
   </div>

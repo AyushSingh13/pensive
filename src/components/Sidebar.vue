@@ -14,7 +14,6 @@
         v-bind:class="{ 'docs-btn-active': isDocsTabActive }"
         v-on:click="() => this.changeSidebarTab('DocumentSet')">docs</button>
     </div>
-    <!-- <div v-show="isDocsTabActive"></div> -->
     <DocumentSet v-show="isDocsTabActive" />
     <VocabularySet v-show="isVocabTabActive" />
   </div>
