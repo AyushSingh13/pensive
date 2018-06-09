@@ -28,6 +28,7 @@ export default {
   store,
   mounted() {
     this.$store.dispatch("getArrayOfAllWordsFromDB");
+    this.$store.dispatch("getArrayOfAllDocsFromDb");
   },
   computed: {
     ...mapState(["isInsertModalOpen", "editorOptions"])

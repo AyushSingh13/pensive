@@ -14,13 +14,15 @@
         v-bind:class="{ 'docs-btn-active': isDocsTabActive }"
         v-on:click="() => this.changeSidebarTab('DocumentSet')">docs</button>
     </div>
-    <div v-show="isDocsTabActive"></div>
+    <!-- <div v-show="isDocsTabActive"></div> -->
+    <DocumentSet v-show="isDocsTabActive" />
     <VocabularySet v-show="isVocabTabActive" />
   </div>
 </template>
 
 <script>
 import VocabularySet from "./VocabularySet.vue";
+import DocumentSet from "./DocumentSet.vue";
 import { mapMutations, mapState } from "vuex";
 
 export default {
@@ -29,7 +31,8 @@ export default {
     ...mapMutations(["changeSidebarTab"])
   },
   components: {
-    VocabularySet
+    VocabularySet,
+    DocumentSet
   },
   computed: {
     ...mapState(["activeSidebar"]),
@@ -46,8 +49,6 @@ export default {
 <style scoped>
 #docs-btn,
 #vocab-btn {
-  /* color: white;
-  background-color: #b2bec3; */
   transition: all 0.3s;
 }
 

@@ -4,11 +4,12 @@ Vue.use(Vuex)
 
 // Settings
 import { wordsApiKey } from "../settings";
-import { vocabularyRef } from "../firebase";
+import { vocabularyRef, documentsDbRef } from "../firebase";
 
 export default new Vuex.Store({
     state: {
         existingWords: [],
+        documents: [],
         activeSidebar: "VocabularySet",
         searchTerm: "",
         textareaValue: "",
@@ -53,6 +54,9 @@ export default new Vuex.Store({
         },
         changeSidebarTab: (state, sidebarValue) => {
             state.activeSidebar = sidebarValue
+        },
+        updateDocs: (state, { updatedDocuments }) => {
+            state.documents = updatedDocuments
         }
     },
     actions: {
@@ -60,6 +64,12 @@ export default new Vuex.Store({
             vocabularyRef.onSnapshot(collection => {
                 const updatedWords = collection.docs.map(doc => Object.assign(doc.data(), { id: doc.id }))
                 commit('updateExistingWords', { updatedWords: updatedWords })
+            })
+        ),
+        getArrayOfAllDocsFromDb: ({ commit }) => (
+            documentsDbRef.onSnapshot(collection => {
+                const updatedDocuments = collection.docs.map(doc => Object.assign(doc.data(), { id: doc.id }))
+                commit('updateDocs', { updatedDocuments: updatedDocuments })
             })
         )
     }

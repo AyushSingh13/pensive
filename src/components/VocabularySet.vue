@@ -78,8 +78,6 @@ export default {
   width: 100%;
   font-size: 1em;
   height: 3em;
-  /* color: white;
-  background-color: #b2bec3; */
   transition: background-color 0.5s;
 }
 

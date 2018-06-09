@@ -1,10 +1,13 @@
 import { initializeApp } from 'firebase/app';
-import 'firebase/database';
 import 'firebase/firestore';
+import 'firebase/storage';
 
 import { firebaseConfig } from './settings';
 
 const app = initializeApp(firebaseConfig);
 
 export const db = app.firestore();
+export const storage = app.storage();
 export const vocabularyRef = db.collection('vocabulary');
+export const documentsStorageRef = storage.ref("documents");
+export const documentsDbRef = db.collection("documents");
