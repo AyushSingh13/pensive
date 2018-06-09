@@ -6,6 +6,8 @@ Vue.use(Vuex)
 import { wordsApiKey } from "../settings";
 import { vocabularyRef, documentsDbRef } from "../firebase";
 
+import marked from "marked";
+
 let markdown =
     `
 # Heading 1
@@ -62,29 +64,33 @@ export default new Vuex.Store({
         markdown: state => state.markdown,
         filteredVocabulary: state => filterFunc => (
             state.existingWords.filter(filterFunc)
-        )
+        ),
+        compiledMarkdown: state => marked(state.markdown, { sanitize: true })
     },
     mutations: {
         toggleInsertModal: state => {
-            state.isInsertModalOpen = !state.isInsertModalOpen
+            state.isInsertModalOpen = !state.isInsertModalOpen;
+        },
+        toggleMarkdownPreview: state => {
+            state.isMarkdownPreviewMode = !state.isMarkdownPreviewMode;
         },
         updateExistingWords: (state, { updatedWords }) => {
             state.existingWords = updatedWords;
         },
         updateSearchTermValue: (state, newSearchTerm) => {
-            state.searchTerm = newSearchTerm
+            state.searchTerm = newSearchTerm;
         },
         updateMarkdownValue: (state, updatedMarkdownValue) => {
-            state.markdown = updatedMarkdownValue
+            state.markdown = updatedMarkdownValue;
         },
         updateTextareaValue: (state, newTextareaValue) => {
-            state.textareaValue = newTextareaValue
+            state.textareaValue = newTextareaValue;
         },
         changeSidebarTab: (state, sidebarValue) => {
-            state.activeSidebar = sidebarValue
+            state.activeSidebar = sidebarValue;
         },
         updateDocs: (state, { updatedDocuments }) => {
-            state.documents = updatedDocuments
+            state.documents = updatedDocuments;
         }
     },
     actions: {

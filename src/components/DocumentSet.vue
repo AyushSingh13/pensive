@@ -3,9 +3,11 @@
       <div id="emptyList" v-if="!this.documents.length">
         When you go write some stuff, you can see it saved here.
         <button v-on:click="this.saveText">Test</button>
+        <button v-on:click="this.toggleMarkdownPreview">MD Preview Test</button>
       </div>
       <div id="populatedList" v-else>
           <button v-on:click="this.saveText">Test</button>
+          <button v-on:click="this.toggleMarkdownPreview">MD Preview Test</button>
           <ul
             v-for="docObj in this.documents"
             v-bind:key="docObj.id"
@@ -17,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import { storage, documentsDbRef } from "../firebase";
 
 export default {
@@ -42,7 +44,8 @@ export default {
             downloadURL: downloadURL
           })
         );
-    }
+    },
+    ...mapMutations(["toggleMarkdownPreview"])
   },
   computed: {
     ...mapState(["textareaValue", "documents"])

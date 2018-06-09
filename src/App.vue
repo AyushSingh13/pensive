@@ -9,12 +9,13 @@
       :editorOptions="this.editorOptions"
     >
     </vue-editor> -->
-    <codemirror style="height: auto" v-model="markdown" :options="this.codeMirrorOptions"></codemirror>
+    <codemirror v-if="!this.isMarkdownPreviewMode" style="height: auto" v-model="markdown" :options="this.codeMirrorOptions"></codemirror>
+    <div v-html="this.compiledMarkdown" v-else></div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 import store from "./store";
 
 // Custom Components
@@ -46,7 +47,8 @@ export default {
       "isInsertModalOpen",
       "editorOptions",
       "codeMirrorOptions",
-      "markdown"
+      "markdown",
+      "isMarkdownPreviewMode"
     ]),
     markdown: {
       get() {
@@ -55,7 +57,8 @@ export default {
       set(updatedMarkdown) {
         this.updateMarkdownValue(updatedMarkdown);
       }
-    }
+    },
+    ...mapGetters(["compiledMarkdown"])
   },
   components: {
     VueEditor,
