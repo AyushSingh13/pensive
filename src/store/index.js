@@ -64,36 +64,28 @@ export default new Vuex.Store({
     },
     mutations: {
         toggleInsertModal: state => Object.assign(
-            state,
-            { isInsertModalOpen: !state.isInsertModalOpen }
+            state, { isInsertModalOpen: !state.isInsertModalOpen }
         ),
         toggleMarkdownPreview: state => Object.assign(
-            state,
-            { isMarkdownPreviewMode: !state.isMarkdownPreviewMode }
+            state, { isMarkdownPreviewMode: !state.isMarkdownPreviewMode }
         ),
         updateExistingWords: (state, { updatedWords }) => Object.assign(
-            state,
-            { existingWords: updatedWords }
+            state, { existingWords: updatedWords }
         ),
         updateSearchTermValue: (state, newSearchTerm) => Object.assign(
-            state,
-            { searchTerm: newSearchTerm }
+            state, { searchTerm: newSearchTerm }
         ),
         updateMarkdownValue: (state, updatedMarkdownValue) => Object.assign(
-            state,
-            { markdown: updatedMarkdownValue }
+            state, { markdown: updatedMarkdownValue }
         ),
         updateTextareaValue: (state, newTextareaValue) => Object.assign(
-            state,
-            { textareaValue: newTextareaValue }
+            state, { textareaValue: newTextareaValue }
         ),
         changeSidebarTab: (state, sidebarValue) => Object.assign(
-            state,
-            { activeSidebar: sidebarValue }
+            state, { activeSidebar: sidebarValue }
         ),
         updateDocs: (state, { updatedDocuments }) => Object.assign(
-            state,
-            { documents: updatedDocuments }
+            state, { documents: updatedDocuments }
         )
     },
     actions: {

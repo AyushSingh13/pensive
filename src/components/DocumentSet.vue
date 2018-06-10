@@ -19,20 +19,20 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 import { storage, documentsDbRef } from "../firebase";
 
 export default {
   name: "DocumentSet",
   methods: {
-    getTitle(text) {
-      return text.split("\n")[0];
-    },
+    getTitle: text => text.split("\n").filter(s => s != "")[0],
     saveText() {
-      let title = this.getTitle(this.textareaValue);
+      let title = this.getTitle(this.markdown);
       console.log(this.documents);
       console.log(title);
-      let textContent = new Blob(["Test save"], { type: "text/plain" });
+      let textContent = new Blob([this.markdown], {
+        type: "text/plain"
+      });
       storage
         .ref()
         .child(title + ".md")
@@ -48,7 +48,8 @@ export default {
     ...mapMutations(["toggleMarkdownPreview"])
   },
   computed: {
-    ...mapState(["textareaValue", "documents"])
+    ...mapState(["textareaValue", "documents", "markdown"]),
+    ...mapGetters(["compiledMarkdown"])
   }
 };
 </script>

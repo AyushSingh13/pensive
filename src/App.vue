@@ -4,33 +4,20 @@
       v-if="this.isInsertModalOpen"
     />
     <Sidebar />
-    <!-- <vue-editor
-      id="quillEditor"
-      :editorOptions="this.editorOptions"
-    >
-    </vue-editor> -->
-    <codemirror v-if="!this.isMarkdownPreviewMode" style="height: auto" v-model="markdown" :options="this.codeMirrorOptions"></codemirror>
-    <div v-html="this.compiledMarkdown" v-else></div>
+    <MarkdownEditor v-if="!this.isMarkdownPreviewMode" />
+    <MarkdownPreview v-else />
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapState } from "vuex";
 import store from "./store";
 
 // Custom Components
 import InsertWords from "./components/InsertWords.vue";
 import Sidebar from "./components/Sidebar.vue";
-
-// Third-party Components
-import { VueEditor } from "vue2-editor";
-import { codemirror } from "vue-codemirror";
-// language
-import "codemirror/mode/markdown/markdown.js";
-import "codemirror/mode/javascript/javascript.js";
-// theme css
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/base16-light.css";
+import MarkdownEditor from "./components/MarkdownEditor.vue";
+import MarkdownPreview from "./components/MarkdownPreview.vue";
 
 export default {
   name: "app",
@@ -39,45 +26,20 @@ export default {
     this.$store.dispatch("getArrayOfAllWordsFromDb");
     this.$store.dispatch("getArrayOfAllDocsFromDb");
   },
-  methods: {
-    ...mapMutations(["updateMarkdownValue"])
-  },
   computed: {
-    ...mapState([
-      "isInsertModalOpen",
-      "editorOptions",
-      "codeMirrorOptions",
-      "markdown",
-      "isMarkdownPreviewMode"
-    ]),
-    markdown: {
-      get() {
-        return this.$store.getters.markdown;
-      },
-      set(updatedMarkdown) {
-        this.updateMarkdownValue(updatedMarkdown);
-      }
-    },
-    ...mapGetters(["compiledMarkdown"])
+    ...mapState(["isInsertModalOpen", "isMarkdownPreviewMode"])
   },
   components: {
-    VueEditor,
     InsertWords,
     Sidebar,
-    codemirror
+    MarkdownEditor,
+    MarkdownPreview
   }
 };
 </script>
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Anonymous+Pro|Roboto+Mono");
-
-.CodeMirror {
-  font-size: 1.5em;
-  height: 100%;
-  max-height: 100%;
-  width: 100%;
-}
 
 html,
 body {
