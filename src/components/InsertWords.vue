@@ -101,7 +101,7 @@ export default {
 
 .modal-container {
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
