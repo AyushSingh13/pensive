@@ -1,13 +1,13 @@
 <template>
   <div id="docsPanel">
+      <div id="editor-controls">
+        <button id="save-btn" v-on:click="this.saveText" class="clean-btn">save</button>
+        <button id="preview-btn" v-on:click="this.toggleMarkdownPreview" class="clean-btn">preview</button>
+      </div>
       <div id="emptyList" v-if="!this.documents.length">
         When you go write some stuff, you can see it saved here.
-        <button v-on:click="this.saveText">Test</button>
-        <button v-on:click="this.toggleMarkdownPreview">MD Preview Test</button>
       </div>
       <div id="populatedList" v-else>
-          <button v-on:click="this.saveText">Test</button>
-          <button v-on:click="this.toggleMarkdownPreview">MD Preview Test</button>
           <ul
             v-for="docObj in this.documents"
             v-bind:key="docObj.id"
@@ -55,6 +55,26 @@ export default {
 </script>
 
 <style scoped>
+#editor-controls {
+  display: flex;
+}
+
+#save-btn,
+#preview-btn {
+  flex: 1;
+  transition: all 0.2s;
+}
+
+#save-btn:hover {
+  color: white;
+  background-color: #2d3436;
+}
+
+#preview-btn:hover {
+  color: white;
+  background-color: #00b894;
+}
+
 #docsPanel {
   display: flex;
   flex-direction: column;

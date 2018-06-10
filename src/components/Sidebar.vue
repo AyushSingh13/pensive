@@ -1,15 +1,13 @@
 <template>
   <div id="sidebar">
-    <div style="display: flex; background-color: black; height: auto">
+    <div id="tabs-container" style="">
       <button 
         id="vocab-btn"
-        style="flex: 1"
         class="clean-btn"
         v-bind:class="{ 'vocab-btn-active': isVocabTabActive }"
         v-on:click="() => this.changeSidebarTab('VocabularySet')">vocabulary</button>
       <button
         id="docs-btn"
-        style="flex: 1"
         class="clean-btn"
         v-bind:class="{ 'docs-btn-active': isDocsTabActive }"
         v-on:click="() => this.changeSidebarTab('DocumentSet')">docs</button>
@@ -46,9 +44,14 @@ export default {
 </script>
 
 <style scoped>
+#tabs-container {
+  display: flex;
+}
+
 #docs-btn,
 #vocab-btn {
-  transition: all 0.3s;
+  transition: all 0.2s;
+  flex: 1;
 }
 
 #docs-btn:hover,
@@ -68,19 +71,6 @@ export default {
   grid-template-rows: 1fr 19fr;
   width: 100%;
   max-height: 100%;
-}
-
-#wordInsertBtn {
-  width: 100%;
-  font-size: 1em;
-  height: 3em;
-  color: white;
-  background-color: #b2bec3;
-  transition: background-color 0.5s;
-}
-
-#wordInsertBtn:hover {
-  background-color: #00b894;
 }
 </style>
 

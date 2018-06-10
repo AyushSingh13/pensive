@@ -93,7 +93,7 @@ vue-editor {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease-out;
+  transition: opacity 0.2s ease-out;
 }
 
 .fade-enter,

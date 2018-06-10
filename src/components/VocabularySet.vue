@@ -1,8 +1,8 @@
 <template>
   <div id="vocabPanel">
     <div>
-      <SearchInput />
       <button id="wordInsertBtn" class="clean-btn" v-on:click="this.toggleInsertModal">add new words</button>
+      <SearchInput />
     </div>
     <div id="emptyList" v-if="!this.filteredVocabulary(this.includedInWordObj).length">
       Insert new words so you can view them here while writing your masterpiece.
@@ -78,7 +78,7 @@ export default {
   width: 100%;
   font-size: 1em;
   height: 3em;
-  transition: background-color 0.5s;
+  transition: background-color 0.2s;
 }
 
 #wordInsertBtn:hover {
