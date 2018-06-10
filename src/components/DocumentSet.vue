@@ -2,7 +2,9 @@
   <div id="docsPanel">
       <div id="editor-controls">
         <button id="save-btn" v-on:click="this.saveText" class="clean-btn">save</button>
-        <button id="preview-btn" v-on:click="this.toggleMarkdownPreview" class="clean-btn">preview</button>
+        <button id="preview-btn" v-on:click="this.toggleMarkdownPreview" class="clean-btn">
+          {{(this.isMarkdownPreviewMode) ? "editor" : "preview"}}
+        </button>
       </div>
       <div id="emptyList" v-if="!this.documents.length">
         When you go write some stuff, you can see it saved here.
@@ -27,20 +29,18 @@ export default {
   methods: {
     getTitle: text => text.split("\n").filter(s => s != "")[0],
     saveText() {
-      let title = this.getTitle(this.markdown);
-      console.log(this.documents);
-      console.log(title);
-      let textContent = new Blob([this.markdown], {
-        type: "text/plain"
-      });
       storage
         .ref()
-        .child(title + ".md")
-        .put(textContent)
+        .child(this.getTitle(this.markdown) + ".md")
+        .put(
+          new Blob([this.markdown], {
+            type: "text/plain"
+          })
+        )
         .then(snapshot => snapshot.ref.getDownloadURL())
         .then(downloadURL =>
           documentsDbRef.add({
-            title: title,
+            title: this.getTitle(this.markdown),
             downloadURL: downloadURL
           })
         );
@@ -48,7 +48,12 @@ export default {
     ...mapMutations(["toggleMarkdownPreview"])
   },
   computed: {
-    ...mapState(["textareaValue", "documents", "markdown"]),
+    ...mapState([
+      "textareaValue",
+      "documents",
+      "markdown",
+      "isMarkdownPreviewMode"
+    ]),
     ...mapGetters(["compiledMarkdown"])
   }
 };
