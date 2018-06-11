@@ -10,12 +10,22 @@
         When you go write some stuff, you can see it saved here.
       </div>
       <div id="populatedList" v-else>
-          <ul
+          <!-- <ul
             v-for="docObj in this.documents"
             v-bind:key="docObj.id"
           >
             <li>{{docObj.title}}</li>
-          </ul>
+          </ul> -->
+          <div
+            v-for="docObj in this.documents"
+            v-bind:key="docObj.id"
+          >
+            <Document 
+              v-bind:key="docObj.id"
+              v-bind:title="docObj.title"
+              v-bind:downloadURL="docObj.downloadURL"
+            />
+          </div>
       </div>
   </div>
 </template>
@@ -23,6 +33,8 @@
 <script>
 import { mapState, mapMutations, mapGetters } from "vuex";
 import { storage, documentsDbRef } from "../firebase";
+
+import Document from "./Document.vue";
 
 export default {
   name: "DocumentSet",
@@ -55,6 +67,9 @@ export default {
       "isMarkdownPreviewMode"
     ]),
     ...mapGetters(["compiledMarkdown"])
+  },
+  components: {
+    Document
   }
 };
 </script>

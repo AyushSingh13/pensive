@@ -43,5 +43,12 @@ export default {
   font-family: "Roboto Mono";
   font-size: 1.25em;
   padding: 1em;
+  height: 100%;
+}
+
+.CodeMirror-scroll {
+  overflow: auto;
+  height: 100%;
+  outline: none;
 }
 </style>

@@ -23,11 +23,15 @@ This is _italics_ and this is **bold**.
 - [ ] item 2
 - [x] item 3 (done)
 
+### Code
+
 \`\`\`javascript
 let add = (x, y) => x + y;
+let add4 = add(4);
+add4(3); // => 7
 \`\`\`
 
-Maths:
+### Maths
 $\\omega$
 `;
 
