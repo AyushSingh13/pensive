@@ -147,6 +147,7 @@ export default {
 textarea {
   border: none;
   resize: none;
+  outline: none;
   height: 10em;
   padding: 1em;
   font-size: 1.5em;
