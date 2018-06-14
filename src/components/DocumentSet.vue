@@ -1,7 +1,7 @@
 <template>
   <div id="docsPanel">
       <div id="editor-controls">
-        <button id="save-btn" v-on:click="this.saveText" class="clean-btn">save</button>
+        <button id="save-btn" v-on:click="this.handleSave" class="clean-btn">save</button>
         <button id="preview-btn" v-on:click="this.toggleMarkdownPreview" class="clean-btn">
           {{(this.isMarkdownPreviewMode) ? "editor" : "preview"}}
         </button>
@@ -10,12 +10,6 @@
         When you go write some stuff, you can see it saved here.
       </div>
       <div id="populatedList" v-else>
-          <!-- <ul
-            v-for="docObj in this.documents"
-            v-bind:key="docObj.id"
-          >
-            <li>{{docObj.title}}</li>
-          </ul> -->
           <div
             v-for="docObj in this.documents"
             v-bind:key="docObj.id"
@@ -40,6 +34,16 @@ export default {
   name: "DocumentSet",
   methods: {
     getTitle: text => text.split("\n").filter(s => s != "")[0],
+    handleSave() {
+      console.log(this.getTitle(this.markdown));
+      documentsDbRef
+        .where("title", "==", this.getTitle(this.markdown))
+        .get()
+        .then(
+          querySnapshot =>
+            querySnapshot.empty ? this.saveText() : this.updateText()
+        );
+    },
     saveText() {
       storage
         .ref()
@@ -56,6 +60,25 @@ export default {
             downloadURL: downloadURL
           })
         );
+    },
+    updateText() {
+      let fileRef = storage.ref().child(this.getTitle(this.markdown) + ".md");
+      fileRef.delete();
+      fileRef.put(
+        new Blob([this.markdown], {
+          type: "text/plain"
+        })
+      );
+      // .then(snapshot => snapshot.ref.getDownloadURL())
+      // .then(
+      //   downloadURL =>
+      //     console.log(
+      //       documentsDbRef.where("title", "==", this.getTitle(this.markdown))
+      //     )
+      //   // .set({
+      //   //   downloadURL: downloadURL
+      //   // })
+      // );
     },
     ...mapMutations(["toggleMarkdownPreview"])
   },
