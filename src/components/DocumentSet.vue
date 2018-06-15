@@ -16,6 +16,7 @@
           >
             <Document 
               v-bind:key="docObj.id"
+              v-bind:id="docObj.id"
               v-bind:title="docObj.title"
               v-bind:downloadURL="docObj.downloadURL"
             />

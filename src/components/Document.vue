@@ -1,11 +1,25 @@
 <template>
-    <button class="clean-btn" id="document-item" v-on:click="this.handleDocumentLoad">
+  <div id="document-item">
+    <button
+      class="clean-btn transition-btn"
+      id="document-load-btn"
+      v-on:click="this.handleDocumentLoad"
+    >
         {{ this.title }}
     </button>
+    <button
+      class="clean-btn transition-btn"
+      id="neg-btn"
+      v-on:click="this.handleDeleteDocument"
+    >
+      &times;
+    </button>
+  </div>
 </template>
 
 <script>
 import { mapMutations } from "vuex";
+import { storage, documentsDbRef } from "../firebase";
 
 export default {
   name: "Document",
@@ -20,6 +34,32 @@ export default {
     },
     loadToEditor(text) {
       this.updateMarkdownValue(text);
+    },
+    handleDeleteDocument() {
+      this.deleteFromDb(this.id);
+      this.deleteFromStorage(this.title + ".md");
+    },
+    deleteFromStorage(fileName) {
+      storage
+        .ref()
+        .child(fileName)
+        .delete()
+        .then(() => console.log(`Deleted ${this.title} successfully.`))
+        .catch(err =>
+          console.log(
+            `Error: deleting ${this.title} from STORAGE failed due to ${err}.`
+          )
+        );
+    },
+    deleteFromDb(id) {
+      documentsDbRef
+        .doc(id)
+        .delete()
+        .catch(err =>
+          console.log(
+            `Error: deleting ${this.title} from DB failed due to ${err}.`
+          )
+        );
     }
   },
   props: {
@@ -32,11 +72,15 @@ export default {
 
 <style scoped>
 #document-item {
-  transition: all 0.2s;
+  display: flex;
   width: 100%;
 }
 
-#document-item:hover {
+#document-load-btn {
+  flex: 1;
+}
+
+#document-load-btn:hover {
   background-color: black;
   color: white;
 }
