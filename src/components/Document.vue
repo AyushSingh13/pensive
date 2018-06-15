@@ -1,5 +1,5 @@
 <template>
-    <button v-on:click="this.handleDocumentLoad">
+    <button class="clean-btn" id="document-item" v-on:click="this.handleDocumentLoad">
         {{ this.title }}
     </button>
 </template>
@@ -31,4 +31,13 @@ export default {
 </script>
 
 <style scoped>
+#document-item {
+  transition: all 0.2s;
+  width: 100%;
+}
+
+#document-item:hover {
+  background-color: black;
+  color: white;
+}
 </style>
