@@ -1,6 +1,7 @@
 <template>
     <div id="signin-page">
-        <button v-on:click="handleSignIn('google')">Sign in with Google</button>
+        <button v-on:click="handleSignIn('google')">Sign-in with Google</button>
+        <button v-on:click="handleSignIn('github')">Sign-in with GitHub</button>
     </div>    
 </template>
 
@@ -10,7 +11,8 @@ import { firebaseAuth } from "../firebase";
 import { mapState, mapMutations } from "vuex";
 
 let providers = {
-  google: new firebaseAuth.GoogleAuthProvider()
+  google: new firebaseAuth.GoogleAuthProvider(),
+  github: new firebaseAuth.GithubAuthProvider()
 };
 
 export default {
