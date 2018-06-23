@@ -5,12 +5,24 @@
         id="vocab-btn"
         class="clean-btn"
         v-bind:class="{ 'vocab-btn-active': isVocabTabActive }"
-        v-on:click="() => this.changeSidebarTab('VocabularySet')">vocabulary</button>
+        v-on:click="() => this.changeSidebarTab('VocabularySet')"
+      >
+        vocabulary
+      </button>
       <button
         id="docs-btn"
         class="clean-btn"
         v-bind:class="{ 'docs-btn-active': isDocsTabActive }"
-        v-on:click="() => this.changeSidebarTab('DocumentSet')">docs</button>
+        v-on:click="() => this.changeSidebarTab('DocumentSet')"
+      >
+        docs
+      </button>
+      <button
+        v-on:click="this.handleSignOut"
+      >
+        sign-out
+      </button>
+      
     </div>
     <DocumentSet v-show="isDocsTabActive" />
     <VocabularySet v-show="isVocabTabActive" />
@@ -22,10 +34,19 @@ import VocabularySet from "./VocabularySet.vue";
 import DocumentSet from "./DocumentSet.vue";
 import { mapMutations, mapState } from "vuex";
 
+import { firebaseAuth } from "../firebase";
+
 export default {
   name: "Sidebar",
   methods: {
-    ...mapMutations(["changeSidebarTab"])
+    ...mapMutations(["changeSidebarTab", "toggleSignInState"]),
+    handleSignOut() {
+      firebaseAuth()
+        .signOut()
+        .then(() => console.log(`Sign-out successful.`))
+        .catch(error => console.log(`SignOutError: ${error}.`));
+      this.toggleSignInState();
+    }
   },
   components: {
     VocabularySet,
