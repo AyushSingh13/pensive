@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="this.isSignedIn">
     <InsertWords
       v-if="this.isInsertModalOpen"
     />
@@ -7,6 +7,7 @@
     <MarkdownEditor v-if="!this.isMarkdownPreviewMode" />
     <MarkdownPreview v-else />
   </div>
+  <SignIn v-else />
 </template>
 
 <script>
@@ -14,6 +15,7 @@ import { mapState } from "vuex";
 import store from "./store";
 
 // Custom Components
+import SignIn from "./components/SignIn.vue";
 import InsertWords from "./components/InsertWords.vue";
 import Sidebar from "./components/Sidebar.vue";
 import MarkdownEditor from "./components/MarkdownEditor.vue";
@@ -25,11 +27,13 @@ export default {
   mounted() {
     this.$store.dispatch("getArrayOfAllWordsFromDb");
     this.$store.dispatch("getArrayOfAllDocsFromDb");
+    console.log(this.isSignedIn);
   },
   computed: {
-    ...mapState(["isInsertModalOpen", "isMarkdownPreviewMode"])
+    ...mapState(["isSignedIn", "isInsertModalOpen", "isMarkdownPreviewMode"])
   },
   components: {
+    SignIn,
     InsertWords,
     Sidebar,
     MarkdownEditor,

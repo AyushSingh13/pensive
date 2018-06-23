@@ -4,7 +4,7 @@ Vue.use(Vuex)
 
 // Settings
 import { wordsApiKey } from "../settings";
-import { vocabularyRef, documentsDbRef } from "../firebase";
+import { vocabularyRef, documentsDbRef, firebaseAuth } from "../firebase";
 
 import marked from "marked";
 
@@ -37,6 +37,7 @@ $\\omega$
 
 export default new Vuex.Store({
     state: {
+        isSignedIn: firebaseAuth.currentUser != null,
         existingWords: [],
         documents: [],
         activeSidebar: "VocabularySet",
@@ -67,6 +68,9 @@ export default new Vuex.Store({
         })
     },
     mutations: {
+        toggleSignInState: state => Object.assign(
+            state, { isSignedIn: !state.isSignedIn }
+        ),
         toggleInsertModal: state => Object.assign(
             state, { isInsertModalOpen: !state.isInsertModalOpen }
         ),
