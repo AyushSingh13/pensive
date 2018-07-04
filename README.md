@@ -1,4 +1,4 @@
-# vocab-writer (WIP)
+# pensive (WIP)
 
 ## Introduction
 
